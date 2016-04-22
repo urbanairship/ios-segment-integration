@@ -3,34 +3,48 @@
 #import "UAPush.h"
 #import "UACustomEvent.h"
 #import "UAAnalytics.h"
+#import "UAConfig.h"
 
 /**
  * Urban Airship Segment integration.
  */
 @implementation SEGUrbanAirshipIntegration
 
-- (id)initWithSettings:(NSDictionary *)settings
-{
+- (id)initWithSettings:(NSDictionary *)settings {
     if (self = [super init]) {
         self.settings = settings;
-    }
 
-    // Ensure takeoff
-    if ([UAirship shared]) {
-        return self;
+        // Set log level for debugging config loading (optional)
+        // It will be set to the value in the loaded config upon takeOff
+        [UAirship setLogLevel:UALogLevelTrace];
+
+        // Populate AirshipConfig.plist with your app's info from https://go.urbanairship.com
+        // or set runtime properties here.
+        UAConfig *config = [UAConfig defaultConfig];
+
+        config.productionAppKey = settings[kUrbanAirshipAppKey];
+        config.productionAppSecret = settings[kUrbanAirshipAppSecret];
+
+        // Call takeOff (which creates the UAirship singleton)
+        [UAirship takeOff:config];
+
+        // Set the notification types required for the app (optional). This value defaults
+        // to badge, alert and sound, so it's only necessary to set it if you want
+        // to add or remove types.
+        [UAirship push].userNotificationTypes = (UIUserNotificationTypeAlert |
+                                                 UIUserNotificationTypeBadge |
+                                                 UIUserNotificationTypeSound);
     }
 
     return nil;
 }
 
--(NSString *)key
-{
+-(NSString *)key {
     return kUrbanAirshipKey;
 }
 
 - (void)identify:(SEGIdentifyPayload *)payload {
     [UAirship push].namedUser.identifier = payload.userId;
-
 }
 
 - (void)screen:(SEGScreenPayload *)payload {
@@ -102,11 +116,6 @@
         if ([value isKindOfClass:[NSNumber class]]) {
             [customEvent setNumberProperty:value forKey:key];
         }
-
-        //Best way to check for bool?
-//        if () {
-//
-//        }
     }
 
     [[UAirship shared].analytics addEvent:customEvent];

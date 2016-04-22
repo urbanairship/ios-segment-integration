@@ -10,4 +10,7 @@
 #define kScreenPrefix @"VIEWED_"
 #define kUrbanAirshipKey @"URBAN_AIRSHIP"
 
+#define kUrbanAirshipAppKey @"appKey"
+#define kUrbanAirshipAppSecret @"appSecret"
+
 @end
