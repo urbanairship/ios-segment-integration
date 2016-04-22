@@ -1,0 +1,23 @@
+PODS:
+  - Analytics (3.0.7)
+  - OCMock (3.3)
+  - UrbanAirship-iOS-SDK (7.0.4)
+  - UrbanAirship-iOS-Segment-Extension (1.0.0):
+    - Analytics (~> 3.0.7)
+    - UrbanAirship-iOS-SDK (~> 7.0.4)
+
+DEPENDENCIES:
+  - OCMock
+  - UrbanAirship-iOS-Segment-Extension (from `..`)
+
+EXTERNAL SOURCES:
+  UrbanAirship-iOS-Segment-Extension:
+    :path: ".."
+
+SPEC CHECKSUMS:
+  Analytics: b342fb4f43fa4f97ca6f4358b44d3295217ba294
+  OCMock: d68685bde31f69cb61d518dcb39269080c78b5ed
+  UrbanAirship-iOS-SDK: d17e8696496a32e49d5503124b75c3f789e62a9d
+  UrbanAirship-iOS-Segment-Extension: 7a95302ae4d88267002c73d2bf497ad65fa49e11
+
+COCOAPODS: 0.39.0

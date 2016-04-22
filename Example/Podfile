@@ -1,0 +1,9 @@
+source 'https://github.com/CocoaPods/Specs.git'
+
+target 'UrbanAirship-iOS-Segment-Extension_Example' do
+  pod 'UrbanAirship-iOS-Segment-Extension',:path => ".."
+
+  target 'UrbanAirship-iOS-Segment-Extension_Tests' do
+    pod 'OCMock'
+  end
+end
