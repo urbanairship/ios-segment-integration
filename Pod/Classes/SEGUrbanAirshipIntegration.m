@@ -5,7 +5,7 @@
 #import "UAAnalytics.h"
 #import "UAConfig.h"
 
-#define kUrbanAirshipScreenPrefix @"VIEWED_"
+#define kUrbanAirshipScreenPrefix @"VIEWED"
 #define kUrbanAirshipKey @"URBAN_AIRSHIP"
 
 #define kUrbanAirshipAppKey @"appKey"
@@ -16,7 +16,7 @@
  */
 @implementation SEGUrbanAirshipIntegration
 
-- (id)initWithSettings:(NSDictionary *)settings {
+- (instancetype)initWithSettings:(NSDictionary *)settings {
     if (self = [super init]) {
         self.settings = settings;
 

@@ -4,6 +4,6 @@
 
 @interface SEGUrbanAirshipIntegrationFactory: NSObject <SEGIntegrationFactory>
 
-+ (id)instance;
++ (instancetype)instance;
 
 @end
