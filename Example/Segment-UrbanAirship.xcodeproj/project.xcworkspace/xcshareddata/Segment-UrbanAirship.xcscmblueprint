@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "A9F5815A0B856100DE90CB54970854092966351D",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "E4CFBBE84AE27EC73B8AC78C5FD3C0A2A3E6C788" : 0,
+    "A9F5815A0B856100DE90CB54970854092966351D" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "76EA95B0-1D52-44E5-8250-DF0C4173E84E",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "E4CFBBE84AE27EC73B8AC78C5FD3C0A2A3E6C788" : "",
+    "A9F5815A0B856100DE90CB54970854092966351D" : "UrbanAirship-iOS-Segment-Extension\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Segment-UrbanAirship",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Example\/Segment-UrbanAirship.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:urbanairship\/ios-segment-extension.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "A9F5815A0B856100DE90CB54970854092966351D"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/urbanairship\/ios-segment-extension.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "E4CFBBE84AE27EC73B8AC78C5FD3C0A2A3E6C788"
+    }
+  ]
+}

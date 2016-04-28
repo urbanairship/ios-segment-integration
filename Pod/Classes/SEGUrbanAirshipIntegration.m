@@ -5,6 +5,12 @@
 #import "UAAnalytics.h"
 #import "UAConfig.h"
 
+#define kUrbanAirshipScreenPrefix @"VIEWED_"
+#define kUrbanAirshipKey @"URBAN_AIRSHIP"
+
+#define kUrbanAirshipAppKey @"appKey"
+#define kUrbanAirshipAppSecret @"appSecret"
+
 /**
  * Urban Airship Segment integration.
  */
@@ -18,25 +24,21 @@
         // It will be set to the value in the loaded config upon takeOff
         [UAirship setLogLevel:UALogLevelTrace];
 
-        // Populate AirshipConfig.plist with your app's info from https://go.urbanairship.com
-        // or set runtime properties here.
         UAConfig *config = [UAConfig defaultConfig];
 
         config.productionAppKey = settings[kUrbanAirshipAppKey];
         config.productionAppSecret = settings[kUrbanAirshipAppSecret];
 
+        if (!config.inProduction && !config.developmentAppKey && !config.developmentAppSecret) {
+            config.developmentAppKey = settings[kUrbanAirshipAppKey];
+            config.developmentAppSecret = settings[kUrbanAirshipAppSecret];
+        }
+
         // Call takeOff (which creates the UAirship singleton)
         [UAirship takeOff:config];
-
-        // Set the notification types required for the app (optional). This value defaults
-        // to badge, alert and sound, so it's only necessary to set it if you want
-        // to add or remove types.
-        [UAirship push].userNotificationTypes = (UIUserNotificationTypeAlert |
-                                                 UIUserNotificationTypeBadge |
-                                                 UIUserNotificationTypeSound);
     }
 
-    return nil;
+    return self;
 }
 
 -(NSString *)key {
@@ -45,10 +47,11 @@
 
 - (void)identify:(SEGIdentifyPayload *)payload {
     [UAirship push].namedUser.identifier = payload.userId;
+    [[UAirship push] updateRegistration];
 }
 
 - (void)screen:(SEGScreenPayload *)payload {
-    NSString *screen = [NSString string];
+    NSString *screen = kUrbanAirshipScreenPrefix;
 
     if (payload.category) {
         [screen stringByAppendingString:[NSString stringWithFormat:@"_%@", payload.category]];
@@ -57,6 +60,8 @@
     if (payload.name) {
         [screen stringByAppendingString:[NSString stringWithFormat:@"_%@", payload.name]];
     }
+
+    [[[UAirship shared] analytics] trackScreen:screen];
 
     [self addEvent:screen properties:payload.properties];
 }
@@ -75,7 +80,8 @@
 // Reset is invoked when the user logs out, and any data saved about the user should be cleared.
 - (void)reset {
     [UAirship push].namedUser.identifier = nil;
-    [[UAirship push] setTags:@[]];
+    [UAirship push].tags = @[];
+    [[UAirship push] updateRegistration];
 }
 
 /**
@@ -84,7 +90,7 @@
  * @param eventName The event name.
  * @param properties The event properties.
  */
--(void)addEvent:(NSString *)eventName properties:(NSDictionary *)properties  {
+-(void)addEvent:(NSString *)eventName properties:(NSDictionary *)properties {
 
     UACustomEvent *customEvent = [UACustomEvent eventWithName:eventName];
 

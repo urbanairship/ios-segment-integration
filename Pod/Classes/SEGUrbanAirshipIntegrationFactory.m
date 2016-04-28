@@ -3,30 +3,26 @@
 
 @implementation SEGUrbanAirshipIntegrationFactory
 
-+ (id)instance
-{
++ (instancetype)instance {
     static dispatch_once_t once;
-    static SEGUrbanAirshipIntegration *sharedInstance;
+    static SEGUrbanAirshipIntegrationFactory *sharedInstance;
     dispatch_once(&once, ^{
         sharedInstance = [[self alloc] init];
     });
     return sharedInstance;
 }
 
-- (id)init
-{
+- (instancetype)init {
     self = [super init];
     return self;
 }
 
-- (id<SEGIntegration>)createWithSettings:(NSDictionary *)settings forAnalytics:(SEGAnalytics *)analytics
-{
+- (id<SEGIntegration>)createWithSettings:(NSDictionary *)settings forAnalytics:(SEGAnalytics *)analytics {
     return [[SEGUrbanAirshipIntegration alloc] initWithSettings:settings];
 }
 
-- (NSString *)key
-{
-    return @"UrbanAirship";
+- (NSString *)key {
+    return @"Urban Airship";
 }
 
 @end

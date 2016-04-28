@@ -23,30 +23,22 @@
  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#import "UAViewController.h"
 
-@import XCTest;
-
-@interface Tests : XCTestCase
+@interface UAViewController ()
 
 @end
 
-@implementation Tests
+@implementation UAViewController
 
-- (void)setUp
+- (void)viewDidLoad
 {
-    [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+    [super viewDidLoad];
 }
 
-- (void)tearDown
+- (void)didReceiveMemoryWarning
 {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    [super tearDown];
-}
-
-- (void)testExample
-{
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+    [super didReceiveMemoryWarning];
 }
 
 @end
