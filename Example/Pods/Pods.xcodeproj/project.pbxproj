@@ -947,21 +947,6 @@
 			<key>sourceTree</key>
 			<string>DEVELOPER_DIR</string>
 		</dict>
-		<key>23090E69E3869178BD833761956AA843</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>archive.ar</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>libPods-Segment-UrbanAirship_Example.a</string>
-			<key>path</key>
-			<string>libPods-Segment-UrbanAirship_Example.a</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
 		<key>23D46DF842C6080F8EF4EDFC79DACF50</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -1247,8 +1232,6 @@
 			<string>Pods-Segment-UrbanAirship_Example</string>
 			<key>productName</key>
 			<string>Pods-Segment-UrbanAirship_Example</string>
-			<key>productReference</key>
-			<string>23090E69E3869178BD833761956AA843</string>
 			<key>productType</key>
 			<string>com.apple.product-type.library.static</string>
 		</dict>
@@ -1665,21 +1648,6 @@
 			<string>Development Pods</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
-		</dict>
-		<key>36B1E7CDBFA5E46621EB1FEF4C9E8652</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>archive.ar</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>libPods-Segment-UrbanAirship_Example-Segment-UrbanAirship_Tests.a</string>
-			<key>path</key>
-			<string>libPods-Segment-UrbanAirship_Example-Segment-UrbanAirship_Tests.a</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
 		</dict>
 		<key>36D6A954C93D55079C4AB1B6B1546237</key>
 		<dict>
@@ -2545,8 +2513,6 @@
 			<array>
 				<string>C81EBD3E826818D9EF64F316BD0FFBB7</string>
 				<string>99949641F8B75971C998F7EB7F054E34</string>
-				<string>23090E69E3869178BD833761956AA843</string>
-				<string>36B1E7CDBFA5E46621EB1FEF4C9E8652</string>
 				<string>BE7BEB231EFACD1A36BD3BE5A76D19C7</string>
 				<string>40EB3B54807E3971D6945F5D5AA14E3A</string>
 			</array>
@@ -4800,8 +4766,6 @@
 			<string>Pods-Segment-UrbanAirship_Example-Segment-UrbanAirship_Tests</string>
 			<key>productName</key>
 			<string>Pods-Segment-UrbanAirship_Example-Segment-UrbanAirship_Tests</string>
-			<key>productReference</key>
-			<string>36B1E7CDBFA5E46621EB1FEF4C9E8652</string>
 			<key>productType</key>
 			<string>com.apple.product-type.library.static</string>
 		</dict>
