@@ -30,9 +30,6 @@
 #import "UAAnalytics.h"
 #import "UAConfig.h"
 
-#define kUrbanAirshipScreenPrefix @"VIEWED"
-#define kUrbanAirshipKey @"URBAN_AIRSHIP"
-
 #define kUrbanAirshipAppKey @"appKey"
 #define kUrbanAirshipAppSecret @"appSecret"
 
@@ -58,16 +55,18 @@
             config.developmentAppKey = settings[kUrbanAirshipAppKey];
             config.developmentAppSecret = settings[kUrbanAirshipAppSecret];
         }
-
-        // Call takeOff (which creates the UAirship singleton)
-        [UAirship takeOff:config];
+        // Call takeOff on main thread (which creates the UAirship singleton)
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            //Your main thread code goes in here
+           [UAirship takeOff:config];
+        });
     }
 
     return self;
 }
 
 -(NSString *)key {
-    return kUrbanAirshipKey;
+    return @"Urban Airship";
 }
 
 - (void)identify:(SEGIdentifyPayload *)payload {
@@ -76,19 +75,7 @@
 }
 
 - (void)screen:(SEGScreenPayload *)payload {
-    NSString *screen = kUrbanAirshipScreenPrefix;
-
-    if (payload.category) {
-        [screen stringByAppendingString:[NSString stringWithFormat:@"_%@", payload.category]];
-    }
-
-    if (payload.name) {
-        [screen stringByAppendingString:[NSString stringWithFormat:@"_%@", payload.name]];
-    }
-
-    [[[UAirship shared] analytics] trackScreen:screen];
-
-    [self addEvent:screen properties:payload.properties];
+    [[[UAirship shared] analytics] trackScreen:(payload.name ?: payload.category)];
 }
 
 - (void)track:(SEGTrackPayload *)payload {
