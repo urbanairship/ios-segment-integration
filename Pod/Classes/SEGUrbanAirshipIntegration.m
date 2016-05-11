@@ -30,9 +30,6 @@
 #import "UAAnalytics.h"
 #import "UAConfig.h"
 
-#define kUrbanAirshipScreenPrefix @"VIEWED"
-#define kUrbanAirshipKey @"URBAN_AIRSHIP"
-
 #define kUrbanAirshipAppKey @"appKey"
 #define kUrbanAirshipAppSecret @"appSecret"
 
@@ -59,15 +56,17 @@
             config.developmentAppSecret = settings[kUrbanAirshipAppSecret];
         }
 
-        // Call takeOff (which creates the UAirship singleton)
-        [UAirship takeOff:config];
+        if (![[NSThread currentThread] isEqual:[NSThread mainThread]]) {
+            // Call takeOff on main thread (which creates the UAirship singleton)
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [UAirship takeOff:config];
+            });
+        } else {
+            [UAirship takeOff:config];
+        }
     }
 
     return self;
-}
-
--(NSString *)key {
-    return kUrbanAirshipKey;
 }
 
 - (void)identify:(SEGIdentifyPayload *)payload {
@@ -76,23 +75,34 @@
 }
 
 - (void)screen:(SEGScreenPayload *)payload {
-    NSString *screen = kUrbanAirshipScreenPrefix;
-
-    if (payload.category) {
-        [screen stringByAppendingString:[NSString stringWithFormat:@"_%@", payload.category]];
-    }
-
-    if (payload.name) {
-        [screen stringByAppendingString:[NSString stringWithFormat:@"_%@", payload.name]];
-    }
-
-    [[[UAirship shared] analytics] trackScreen:screen];
-
-    [self addEvent:screen properties:payload.properties];
+    [[[UAirship shared] analytics] trackScreen:(payload.name ?: payload.category)];
 }
 
 - (void)track:(SEGTrackPayload *)payload {
-    [self addEvent:payload.event properties:payload.properties];
+    UACustomEvent *customEvent = [UACustomEvent eventWithName:payload.event];
+
+    NSNumber *value = [SEGUrbanAirshipIntegration extractRevenue:payload.properties withKey:@"revenue"];
+    if (!value) {
+        value = [SEGUrbanAirshipIntegration extractRevenue:payload.properties withKey:@"value"];
+    }
+
+    if (value) {
+        customEvent.eventValue = [NSDecimalNumber decimalNumberWithDecimal:[value decimalValue]];
+    }
+
+    for (NSString *key in payload.properties) {
+        id value = payload.properties[key];
+
+        if ([value isKindOfClass:[NSString class]]) {
+            [customEvent setStringProperty:value forKey:key];
+        }
+
+        if ([value isKindOfClass:[NSNumber class]]) {
+            [customEvent setNumberProperty:value forKey:key];
+        }
+    }
+
+    [[UAirship shared].analytics addEvent:customEvent];
 }
 
 - (void)group:(SEGGroupPayload *)payload {
@@ -107,49 +117,6 @@
     [UAirship push].namedUser.identifier = nil;
     [UAirship push].tags = @[];
     [[UAirship push] updateRegistration];
-}
-
-/**
- * Creates a Custom Event from Segment track and screen calls.
- *
- * @param eventName The event name.
- * @param properties The event properties.
- */
--(void)addEvent:(NSString *)eventName properties:(NSDictionary *)properties {
-
-    UACustomEvent *customEvent = [UACustomEvent eventWithName:eventName];
-
-    if (properties[@"revenue"]) {
-        customEvent.eventValue = properties[@"revenue"];
-    } else if (properties[@"value"]) {
-        customEvent.eventValue = properties[@"value"];
-    }
-
-    // Try to extract a "revenue" or "value" property.
-    NSNumber *value = [SEGUrbanAirshipIntegration extractRevenue:properties withKey:@"revenue"];
-    NSNumber *valueFallback = [SEGUrbanAirshipIntegration extractRevenue:properties withKey:@"value"];
-    if (!value && valueFallback) {
-        // fall back to the "value" property
-        value = valueFallback;
-    }
-
-    if (value) {
-        customEvent.eventValue = [NSDecimalNumber decimalNumberWithDecimal:[value decimalValue]];
-    }
-
-    for (NSString *key in properties) {
-        id value = properties[key];
-
-        if ([value isKindOfClass:[NSString class]]) {
-            [customEvent setStringProperty:value forKey:key];
-        }
-
-        if ([value isKindOfClass:[NSNumber class]]) {
-            [customEvent setNumberProperty:value forKey:key];
-        }
-    }
-
-    [[UAirship shared].analytics addEvent:customEvent];
 }
 
 + (NSNumber *)extractRevenue:(NSDictionary *)dictionary withKey:(NSString *)revenueKey {

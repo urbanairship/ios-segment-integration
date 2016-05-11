@@ -25,13 +25,38 @@
 
 
 #import "UAAppDelegate.h"
+#import "SEGAnalytics.h"
+#import "SEGUrbanAirshipIntegration.h"
+#import "SEGUrbanAirshipIntegrationFactory.h"
+#import "UAirship.h"
+#import "UAPush.h"
 
 @implementation UAAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+
+    SEGAnalyticsConfiguration *config = [SEGAnalyticsConfiguration configurationWithWriteKey:@"API_KEY"];
+    [config use:[SEGUrbanAirshipIntegrationFactory instance]];
+    [SEGAnalytics setupWithConfiguration:config];
+
+    [[SEGAnalytics sharedAnalytics] track:@"Hello World"];
+    [[SEGAnalytics sharedAnalytics] group:@"segment"];
+    [[SEGAnalytics sharedAnalytics] screen:@"home"];
+    [[SEGAnalytics sharedAnalytics] identify:@"test-user"];
+    [[SEGAnalytics sharedAnalytics] flush];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(airshipReady)
+                                                 name:@"io.segment.analytics.integration.did.start"
+                                               object:[SEGUrbanAirshipIntegrationFactory instance].key];
+
     // Override point for customization after application launch.
     return YES;
+}
+
+- (void)airshipReady {
+    [UAirship push].userPushNotificationsEnabled = YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
