@@ -55,11 +55,15 @@
             config.developmentAppKey = settings[kUrbanAirshipAppKey];
             config.developmentAppSecret = settings[kUrbanAirshipAppSecret];
         }
-        // Call takeOff on main thread (which creates the UAirship singleton)
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            //Your main thread code goes in here
-           [UAirship takeOff:config];
-        });
+
+        if (![[NSThread currentThread] isEqual:[NSThread mainThread]]) {
+            // Call takeOff on main thread (which creates the UAirship singleton)
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [UAirship takeOff:config];
+            });
+        } else {
+            [UAirship takeOff:config];
+        }
     }
 
     return self;
