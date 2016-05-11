@@ -38,9 +38,9 @@ To listen for when the Urban Airship integration is ready, listen for the `io.se
     ...
 
     [[[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(airshipReady)
-                                                 name:@"io.segment.analytics.integration.did.start"
-                                               object:[SEGUrbanAirshipIntegrationFactory instance].key];
+                                              selector:@selector(airshipReady)
+                                                  name:@"io.segment.analytics.integration.did.start"
+                                                object:[SEGUrbanAirshipIntegrationFactory instance].key];
 
 ## Author
 
