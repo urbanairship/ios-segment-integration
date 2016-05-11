@@ -21,7 +21,7 @@ Use the Urban Airship Integration:
 
     SEGAnalyticsConfiguration *config = [SEGAnalyticsConfiguration configurationWithWriteKey:@"YOUR_WRITE_KEY"];
 
-    [config use:[SEGUrbanAirshipIntegration instance]];
+    [config use:[SEGUrbanAirshipIntegrationFactory instance]];
 
     [SEGAnalytics setupWithConfiguration:config];
 
@@ -33,20 +33,18 @@ Once the Urban Airship integration is ready, you can enable user notifications w
     [UAirship push].userPushNotificationsEnabled = YES;
 
 
-To listen for when the Urban Airship integration is ready, listen for the SEGAnalyticsIntegrationDidStart NSNotification event:
-
+To listen for when the Urban Airship integration is ready, listen for the `io.segment.analytics.integration.did.start` NSNotification event:
 
     ...
 
-    [[NSNotificationCenter defaultCenter]
-          addObserver:self
-             selector:@selector(airshipReady)
-                 name:SEGAnalyticsIntegrationDidStart
-               object:@"UrbanAirship"];
+    [[[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(airshipReady)
+                                                 name:@"io.segment.analytics.integration.did.start"
+                                               object:[SEGUrbanAirshipIntegrationFactory instance].key];
 
 ## Author
 
-Urban Airship, support@urbanairship.com
+Urban Airship
 
 ## License
 
