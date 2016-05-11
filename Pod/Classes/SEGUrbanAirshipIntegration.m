@@ -65,10 +65,6 @@
     return self;
 }
 
--(NSString *)key {
-    return @"Urban Airship";
-}
-
 - (void)identify:(SEGIdentifyPayload *)payload {
     [UAirship push].namedUser.identifier = payload.userId;
     [[UAirship push] updateRegistration];
