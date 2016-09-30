@@ -1,6 +1,10 @@
 iOS Segment Integration Changelog
 =================================
 
+Version 1.0.2 - Sep 30, 2016
+============================
+- Updated minimum library version
+
 Version 1.0.1 - May 11, 2016
 ============================
 - Example uses the integration
