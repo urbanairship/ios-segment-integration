@@ -70,7 +70,7 @@
 }
 
 - (void)identify:(SEGIdentifyPayload *)payload {
-    [UAirship push].namedUser.identifier = payload.userId;
+    [UAirship namedUser].identifier = payload.userId;
     [[UAirship push] updateRegistration];
 }
 
@@ -114,7 +114,7 @@
 
 // Reset is invoked when the user logs out, and any data saved about the user should be cleared.
 - (void)reset {
-    [UAirship push].namedUser.identifier = nil;
+    [UAirship namedUser].identifier = nil;
     [UAirship push].tags = @[];
     [[UAirship push] updateRegistration];
 }
