@@ -1,6 +1,11 @@
 iOS Segment Integration Changelog
 =================================
 
+Version 1.0.3 - Oct 10, 2016
+============================
+- Automatically call takeOff during didFinishLaunching with previous segment settings to
+  ensure the UrbanAirship SDK is ready to handle incoming notifications.
+
 Version 1.0.2 - Sep 30, 2016
 ============================
 - Updated minimum library version
