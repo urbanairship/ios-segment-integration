@@ -24,6 +24,8 @@
  */
 
 #import "SEGUrbanAirshipIntegration.h"
+#import "SEGUrbanAirshipAutopilot.h"
+
 #import "UAirship.h"
 #import "UAPush.h"
 #import "UACustomEvent.h"
@@ -41,29 +43,7 @@
 - (instancetype)initWithSettings:(NSDictionary *)settings {
     if (self = [super init]) {
         self.settings = settings;
-
-        // Set log level for debugging config loading (optional)
-        // It will be set to the value in the loaded config upon takeOff
-        [UAirship setLogLevel:UALogLevelTrace];
-
-        UAConfig *config = [UAConfig defaultConfig];
-
-        config.productionAppKey = settings[kUrbanAirshipAppKey];
-        config.productionAppSecret = settings[kUrbanAirshipAppSecret];
-
-        if (!config.inProduction && !config.developmentAppKey && !config.developmentAppSecret) {
-            config.developmentAppKey = settings[kUrbanAirshipAppKey];
-            config.developmentAppSecret = settings[kUrbanAirshipAppSecret];
-        }
-
-        if (![[NSThread currentThread] isEqual:[NSThread mainThread]]) {
-            // Call takeOff on main thread (which creates the UAirship singleton)
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                [UAirship takeOff:config];
-            });
-        } else {
-            [UAirship takeOff:config];
-        }
+        [SEGUrbanAirshipAutopilot takeOff:settings];
     }
 
     return self;
