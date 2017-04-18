@@ -1,10 +1,10 @@
 PODS:
   - Analytics (3.0.7)
-  - OCMock (3.3.1)
-  - Segment-UrbanAirship (1.0.2):
+  - OCMock (3.4)
+  - Segment-UrbanAirship (1.0.4):
     - Analytics (~> 3.0.0)
-    - UrbanAirship-iOS-SDK (~> 8.0.1)
-  - UrbanAirship-iOS-SDK (8.0.1)
+    - UrbanAirship-iOS-SDK (~> 8.2.2)
+  - UrbanAirship-iOS-SDK (8.2.2)
 
 DEPENDENCIES:
   - OCMock
@@ -12,14 +12,14 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   Segment-UrbanAirship:
-    :path: ".."
+    :path: ..
 
 SPEC CHECKSUMS:
   Analytics: b342fb4f43fa4f97ca6f4358b44d3295217ba294
-  OCMock: f3f61e6eaa16038c30caa5798c5e49d3307b6f22
-  Segment-UrbanAirship: 359bd28d69493df0bee17ed1518c1dd8f2befa43
-  UrbanAirship-iOS-SDK: a4ff01ef90d5b32508818da5b8385828513702f9
+  OCMock: 35ae71d6a8fcc1b59434d561d1520b9dd4f15765
+  Segment-UrbanAirship: 28d711fe33eb08bc17fd0631392955b8479694e6
+  UrbanAirship-iOS-SDK: b73b08b28f1b1366b671da21fac261072ef3fe19
 
 PODFILE CHECKSUM: dbd8851494cf816c26fcdebfdca7416ad84860ee
 
-COCOAPODS: 1.1.0.rc.2
+COCOAPODS: 1.2.0

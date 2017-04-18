@@ -56,24 +56,13 @@ NSString *const SEGUrbanAirshipAutopilotAppSecret = @"appSecret";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setValue:settings forKey:SEGUrbanAirshipAutopilotSettings];
 
-    // TakeOff
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-
-        // Set log level for debugging config loading (optional)
-        // It will be set to the value in the loaded config upon takeOff
-        [UAirship setLogLevel:UALogLevelTrace];
-
-
-        if (![[NSThread currentThread] isEqual:[NSThread mainThread]]) {
-            // Call takeOff on main thread (which creates the UAirship singleton)
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                [UAirship takeOff:config];
-            });
-        } else {
+    if (![NSThread isMainThread]) {
+        dispatch_sync(dispatch_get_main_queue(), ^{
             [UAirship takeOff:config];
-        }
-    });
+        });
+    } else {
+        [UAirship takeOff:config];
+    }
 }
 
 
