@@ -25,12 +25,8 @@
 
 #import "SEGUrbanAirshipIntegration.h"
 #import "SEGUrbanAirshipAutopilot.h"
+#import <AirshipKit/AirshipKit.h>
 
-#import "UAirship.h"
-#import "UAPush.h"
-#import "UACustomEvent.h"
-#import "UAAnalytics.h"
-#import "UAConfig.h"
 
 #define kUrbanAirshipAppKey @"appKey"
 #define kUrbanAirshipAppSecret @"appSecret"

@@ -24,8 +24,8 @@
  */
 
 #import "SEGUrbanAirshipAutopilot.h"
-#import "UAirship.h"
-#import "UAConfig.h"
+#import <AirshipKit/AirshipKit.h>
+
 
 @implementation SEGUrbanAirshipAutopilot
 
