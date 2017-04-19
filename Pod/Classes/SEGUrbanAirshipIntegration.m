@@ -25,7 +25,7 @@
 
 #import "SEGUrbanAirshipIntegration.h"
 #import "SEGUrbanAirshipAutopilot.h"
-#import <AirshipKit/AirshipKit.h>
+#import "AirshipLib.h"
 
 
 #define kUrbanAirshipAppKey @"appKey"
