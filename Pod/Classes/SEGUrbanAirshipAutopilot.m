@@ -24,8 +24,8 @@
  */
 
 #import "SEGUrbanAirshipAutopilot.h"
-#import "UAirship.h"
-#import "UAConfig.h"
+#import <AirshipKit/AirshipKit.h>
+
 
 @implementation SEGUrbanAirshipAutopilot
 
@@ -38,7 +38,7 @@ NSString *const SEGUrbanAirshipAutopilotAppSecret = @"appSecret";
     [center addObserver:[SEGUrbanAirshipAutopilot class] selector:@selector(didFinishLaunching) name:UIApplicationDidFinishLaunchingNotification object:nil];
 }
 
-+(void)takeOff:(NSDictionary *)settings {
++(void)takeOff:(NSDictionary *)settings storeConfig:(BOOL)storeConfig {
     UAConfig *config = [UAConfig defaultConfig];
     config.productionAppKey = settings[SEGUrbanAirshipAutopilotAppKey];
     config.productionAppSecret = settings[SEGUrbanAirshipAutopilotAppSecret];
@@ -52,28 +52,25 @@ NSString *const SEGUrbanAirshipAutopilotAppSecret = @"appSecret";
         return;
     }
 
-    // Store the valid config
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setValue:settings forKey:SEGUrbanAirshipAutopilotSettings];
+    // Store the config
+    if (storeConfig) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSUserDefaults standardUserDefaults] setValue:settings forKey:SEGUrbanAirshipAutopilotSettings];
+        });
+    }
 
-    // TakeOff
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+    if ([UAirship shared]) {
+        // TakeOff already called
+        return;
+    }
 
-        // Set log level for debugging config loading (optional)
-        // It will be set to the value in the loaded config upon takeOff
-        [UAirship setLogLevel:UALogLevelTrace];
-
-
-        if (![[NSThread currentThread] isEqual:[NSThread mainThread]]) {
-            // Call takeOff on main thread (which creates the UAirship singleton)
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                [UAirship takeOff:config];
-            });
-        } else {
+    if (![NSThread isMainThread]) {
+        dispatch_sync(dispatch_get_main_queue(), ^{
             [UAirship takeOff:config];
-        }
-    });
+        });
+    } else {
+        [UAirship takeOff:config];
+    }
 }
 
 
@@ -81,7 +78,7 @@ NSString *const SEGUrbanAirshipAutopilotAppSecret = @"appSecret";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
     if ([defaults valueForKey:SEGUrbanAirshipAutopilotSettings]) {
-        [self takeOff:[defaults valueForKey:SEGUrbanAirshipAutopilotSettings]];
+        [self takeOff:[defaults valueForKey:SEGUrbanAirshipAutopilotSettings] storeConfig:NO];
     }
 }
 
