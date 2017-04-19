@@ -26,6 +26,6 @@
 
 @interface SEGUrbanAirshipAutopilot : NSObject
 
-+(void)takeOff:(NSDictionary *)settings;
++(void)takeOff:(NSDictionary *)settings storeConfig:(BOOL)storeConfig;
 
 @end

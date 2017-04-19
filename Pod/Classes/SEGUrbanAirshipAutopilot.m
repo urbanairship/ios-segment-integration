@@ -38,7 +38,7 @@ NSString *const SEGUrbanAirshipAutopilotAppSecret = @"appSecret";
     [center addObserver:[SEGUrbanAirshipAutopilot class] selector:@selector(didFinishLaunching) name:UIApplicationDidFinishLaunchingNotification object:nil];
 }
 
-+(void)takeOff:(NSDictionary *)settings {
++(void)takeOff:(NSDictionary *)settings storeConfig:(BOOL)storeConfig {
     UAConfig *config = [UAConfig defaultConfig];
     config.productionAppKey = settings[SEGUrbanAirshipAutopilotAppKey];
     config.productionAppSecret = settings[SEGUrbanAirshipAutopilotAppSecret];
@@ -52,9 +52,17 @@ NSString *const SEGUrbanAirshipAutopilotAppSecret = @"appSecret";
         return;
     }
 
-    // Store the valid config
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setValue:settings forKey:SEGUrbanAirshipAutopilotSettings];
+    // Store the config
+    if (storeConfig) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSUserDefaults standardUserDefaults] setValue:settings forKey:SEGUrbanAirshipAutopilotSettings];
+        });
+    }
+
+    if ([UAirship shared]) {
+        // TakeOff already called
+        return;
+    }
 
     if (![NSThread isMainThread]) {
         dispatch_sync(dispatch_get_main_queue(), ^{
@@ -70,7 +78,7 @@ NSString *const SEGUrbanAirshipAutopilotAppSecret = @"appSecret";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
     if ([defaults valueForKey:SEGUrbanAirshipAutopilotSettings]) {
-        [self takeOff:[defaults valueForKey:SEGUrbanAirshipAutopilotSettings]];
+        [self takeOff:[defaults valueForKey:SEGUrbanAirshipAutopilotSettings] storeConfig:NO];
     }
 }
 

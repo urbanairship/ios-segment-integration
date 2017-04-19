@@ -43,7 +43,7 @@
 - (instancetype)initWithSettings:(NSDictionary *)settings {
     if (self = [super init]) {
         self.settings = settings;
-        [SEGUrbanAirshipAutopilot takeOff:settings];
+        [SEGUrbanAirshipAutopilot takeOff:settings storeConfig:YES];
     }
 
     return self;
