@@ -1,7 +1,7 @@
 {
   "name": "Segment-UrbanAirship",
   "documentation_url": "https://github.com/urbanairship/ios-segment-integration",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "license": "Apache",
   "summary": "Urban Airship Integration for Segment's analytics-ios library.",
   "homepage": "https://github.com/urbanairship/ios-segment-integration",
@@ -10,10 +10,10 @@
   },
   "source": {
     "git": "https://github.com/urbanairship/ios-segment-integration.git",
-    "tag": "1.1.0"
+    "tag": "1.2.0"
   },
   "platforms": {
-    "ios": "8.0"
+    "ios": "10.0"
   },
   "requires_arc": true,
   "source_files": "Pod/Classes/**/*",
@@ -22,7 +22,7 @@
       "~> 3.0.0"
     ],
     "UrbanAirship-iOS-SDK": [
-      "~> 8.2.2"
+      "~> 9.1"
     ]
   }
 }
