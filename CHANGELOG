@@ -1,6 +1,10 @@
 iOS Segment Integration Changelog
 =================================
 
+Version 1.2.0 - May 22, 2018
+============================
+- Update Urban Airship SDK dependency to 9.1.0
+
 Version 1.1.0 - April 18, 2017
 ==============================
 - Remove extra dispatch_once call to prevent possible segment_wait_trap.
