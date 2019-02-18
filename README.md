@@ -6,6 +6,10 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Requirements
 
+## Passive Registration Mode
+
+The Urban Airship Segment integration enables passive registration by default. This default setting allows Urban Airship push services to properly function when push registration occurs independently of the Urban Airship SDK. 
+
 ## Installation
 
 Segment-UrbanAirship is available through [CocoaPods](http://cocoapods.org). To install
