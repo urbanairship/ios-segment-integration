@@ -1,6 +1,11 @@
 iOS Segment Integration Changelog
 =================================
 
+Version 1.3.0 - Feb 19, 2019
+============================
+- Enable passive registration
+- Update Urban Airship SDK dependency to 10.1.0
+
 Version 1.2.0 - May 22, 2018
 ============================
 - Update Urban Airship SDK dependency to 9.1.0
