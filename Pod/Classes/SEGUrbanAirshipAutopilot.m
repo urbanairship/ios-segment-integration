@@ -43,6 +43,9 @@ NSString *const SEGUrbanAirshipAutopilotAppSecret = @"appSecret";
     config.productionAppKey = settings[SEGUrbanAirshipAutopilotAppKey];
     config.productionAppSecret = settings[SEGUrbanAirshipAutopilotAppSecret];
 
+    // Enable passive APNS registration
+    config.requestAuthorizationToUseNotifications = NO;
+
     if (!config.inProduction && !config.developmentAppKey && !config.developmentAppSecret) {
         config.developmentAppKey = settings[SEGUrbanAirshipAutopilotAppKey];
         config.developmentAppSecret = settings[SEGUrbanAirshipAutopilotAppSecret];
@@ -67,6 +70,8 @@ NSString *const SEGUrbanAirshipAutopilotAppSecret = @"appSecret";
     if (![NSThread isMainThread]) {
         dispatch_sync(dispatch_get_main_queue(), ^{
             [UAirship takeOff:config];
+            // Enable push by default for passive registration
+            UAirship.push.userPushNotificationsEnabledByDefault = YES;
         });
     } else {
         [UAirship takeOff:config];
