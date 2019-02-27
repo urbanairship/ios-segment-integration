@@ -32,10 +32,10 @@ Use the Urban Airship Integration:
 
 #### Enabling user notifications
 
-Once the Urban Airship integration is ready, you can enable user notifications with the following:
+Urban Airship integration will listen to system authorization and registration events and register automatically when authorization is given.
 
-    [UAirship push].userPushNotificationsEnabled = YES;
 
+#### Listening for ready state
 
 To listen for when the Urban Airship integration is ready, listen for the `io.segment.analytics.integration.did.start` NSNotification event:
 
