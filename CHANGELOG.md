@@ -1,9 +1,9 @@
 iOS Segment Integration Changelog
 =================================
 
-Version 2.0.0 - Jun 24, 2019
+Version 2.0.0 - Jul 1, 2019
 ============================
-- Update Urban Airship SDK dependency to 11.0
+- Update Airship SDK dependency to 11.0
 
 Version 1.3.0 - Feb 27, 2019
 ============================
