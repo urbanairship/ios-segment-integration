@@ -1,7 +1,7 @@
 iOS Segment Integration Changelog
 =================================
 
-Version 2.0.0 - Jul 1, 2019
+Version 2.0.0 - July 1, 2019
 ============================
 - Update Airship SDK dependency to 11.0
 
