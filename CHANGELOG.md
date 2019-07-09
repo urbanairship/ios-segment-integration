@@ -1,6 +1,10 @@
 iOS Segment Integration Changelog
 =================================
 
+Version 2.0.0 - July 3, 2019
+============================
+- Update Airship SDK dependency to 11.0
+
 Version 1.3.0 - Feb 27, 2019
 ============================
 - Enable passive registration

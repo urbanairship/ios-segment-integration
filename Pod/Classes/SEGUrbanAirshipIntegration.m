@@ -1,4 +1,4 @@
-/* Copyright Urban Airship and Contributors */
+/* Copyright Airship and Contributors */
 
 #import "SEGUrbanAirshipIntegration.h"
 #import "SEGUrbanAirshipAutopilot.h"
@@ -9,7 +9,7 @@
 #define kUrbanAirshipAppSecret @"appSecret"
 
 /**
- * Urban Airship Segment integration.
+ * Airship Segment integration.
  */
 @implementation SEGUrbanAirshipIntegration
 

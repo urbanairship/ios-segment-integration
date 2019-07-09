@@ -8,7 +8,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Passive Registration Mode
 
-The Urban Airship Segment integration enables passive registration by default. This default setting allows Urban Airship push services to properly function when push registration occurs independently of the Urban Airship SDK. 
+The Airship Segment integration enables passive registration by default. This default setting allows Airship push services to properly function when push registration occurs independently of the Airship SDK. 
 
 ## Installation
 
@@ -21,7 +21,7 @@ pod "Segment-UrbanAirship"
 
 ### Setup
 
-Use the Urban Airship Integration:
+Use the Airship Integration:
 
     SEGAnalyticsConfiguration *config = [SEGAnalyticsConfiguration configurationWithWriteKey:@"YOUR_WRITE_KEY"];
 
@@ -32,12 +32,12 @@ Use the Urban Airship Integration:
 
 #### Enabling user notifications
 
-Urban Airship integration will listen to system authorization and registration events and register automatically when authorization is given.
+The Airship integration will listen to system authorization and registration events and register automatically when authorization is given.
 
 
 #### Listening for ready state
 
-To listen for when the Urban Airship integration is ready, listen for the `io.segment.analytics.integration.did.start` NSNotification event:
+To listen for when the Airship integration is ready, listen for the `io.segment.analytics.integration.did.start` NSNotification event:
 
     ...
 
@@ -48,7 +48,7 @@ To listen for when the Urban Airship integration is ready, listen for the `io.se
 
 ## Author
 
-Urban Airship
+Airship
 
 ## License
 
