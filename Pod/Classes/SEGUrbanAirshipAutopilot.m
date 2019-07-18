@@ -12,7 +12,10 @@ NSString *const SEGUrbanAirshipAutopilotAppSecret = @"appSecret";
 
 + (void)load {
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserver:[SEGUrbanAirshipAutopilot class] selector:@selector(didFinishLaunching) name:UIApplicationDidFinishLaunchingNotification object:nil];
+    [center addObserver:[SEGUrbanAirshipAutopilot class]
+               selector:@selector(didFinishLaunching)
+                   name:UIApplicationDidFinishLaunchingNotification
+                 object:nil];
 }
 
 +(void)takeOff:(NSDictionary *)settings storeConfig:(BOOL)storeConfig {
