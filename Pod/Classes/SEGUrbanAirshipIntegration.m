@@ -24,7 +24,31 @@
 
 - (void)identify:(SEGIdentifyPayload *)payload {
     [UAirship namedUser].identifier = payload.userId;
-    [[UAirship push] updateRegistration];
+
+    NSMutableArray *addTags = [NSMutableArray array];
+    NSMutableArray *removeTags = [NSMutableArray array];
+
+    for (NSString *key in payload.traits) {
+        id value = payload.traits[key];
+        if (![value isKindOfClass:[NSNumber class]]) {
+            continue;
+        }
+
+        CFTypeID type = CFGetTypeID((__bridge CFTypeRef)(value));
+        if (type != CFBooleanGetTypeID()) {
+            continue;
+        }
+
+        if ([value boolValue]) {
+            [addTags addObject:key];
+        } else {
+            [removeTags addObject:key];
+        }
+    }
+
+    [[UAirship namedUser] addTags:addTags group:@"segment-integration"];
+    [[UAirship namedUser] removeTags:removeTags group:@"segment-integration"];
+    [[UAirship namedUser] updateTags];
 }
 
 - (void)screen:(SEGScreenPayload *)payload {
@@ -33,6 +57,7 @@
 
 - (void)track:(SEGTrackPayload *)payload {
     UACustomEvent *customEvent = [UACustomEvent eventWithName:payload.event];
+    customEvent.transactionID = @"cdp";
 
     NSNumber *value = [SEGUrbanAirshipIntegration extractRevenue:payload.properties withKey:@"revenue"];
     if (!value) {
