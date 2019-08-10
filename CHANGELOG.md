@@ -1,6 +1,11 @@
 iOS Segment Integration Changelog
 =================================
 
+Version 2.1.0 - August 9, 2019
+==============================
+- Update track integration to set the transaction ID.
+- Update identify to also set boolean attributes as tags in the tag group `segment-integration`
+
 Version 2.0.0 - July 17, 2019
 =============================
 - Update Airship SDK dependency to 11.1.0
